@@ -1,0 +1,50 @@
+# Docker compose app angular api movies, version 3.0(used to read the yml)
+version : "3.8"
+# services
+services :
+# NODE APP ANGULAR
+    lcbp_a-frontend:
+        build:
+            context : ../lcbp_a-frontend
+            dockerfile : prod.Dockerfile
+        image: lcboost_angular_node:lts-alpine
+        container_name: prod_lcbp_a-frontend_ctn
+        depends_on:
+            - lcbp_a-backend
+        links :
+            - lcbp_a-backend:api_host
+        # ports:
+            # - 80:80
+        # environment:
+        #     URL_BASE: "http://localhost:81"
+# MYSQL DATABASE
+    lcboost_db:
+        #build: ./db
+        image: mysql:latest
+        container_name: prod_lcboost_db_ctn
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysqlpw
+            - MYSQL_USER=lcboost
+            - MYSQL_PASSWORD=lcboostpw
+            - MYSQL_DATABASE=lcboostdb
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 1s
+            retries: 60
+# NODE API EXPRESS
+    lcbp_a-backend:
+        build:
+            context : ../lcbp_a-backend
+            dockerfile : prod.Dockerfile
+        image: lcboost_express_node:lts-alpine
+        container_name: prod_lcbp_a-backend_ctn
+        restart: always
+        depends_on:
+            lcboost_db :
+                condition : service_healthy
+        links:
+            - lcboost_db:lcboost_db_host
+        # ports :
+            # - 81:8000
+        expose :
+            - 9002

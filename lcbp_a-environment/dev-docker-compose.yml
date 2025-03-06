@@ -1,0 +1,86 @@
+# Docker compose app angular api movies, version 3.0(used to read the yml)
+name : LCBP_A_DEV
+# services
+services : 
+# NODE APP ANGULAR (indentation include it in services like an associative array)
+    # service name
+    lcbp_a-frontend:
+            #path to angular dockerfile
+        build: 
+            context : ../lcbp_a-frontend
+            dockerfile : dev.Dockerfile
+        #env_file: ./cfg/.env
+            #image name
+        image: lcboost_angular_node:lts-alpine
+            #container name
+        container_name: dev_lcbp_a-frontend_ctn
+        # restart: always
+            #asociate service dependency, structure execution order
+        depends_on: 
+            - lcbp_a-backend
+        ports: 
+            - 80:4200
+        volumes: 
+            - ../lcbp_a-frontend:/app
+        # environment: 
+            # - API_HOST=localhost
+            # - API_PORT=81
+# NODE API EXPRESS
+    lcbp_a-backend:
+        build: 
+            context : ../lcbp_a-backend
+            dockerfile : dev.Dockerfile
+        image: lcboost_express_node:lts-alpine
+        container_name: dev_lcbp_a-backend_ctn
+        # restart: always
+        depends_on: 
+            lcboost_db :
+                condition : service_healthy
+        links: 
+            - lcboost_db:lcboost_db_host
+        ports: 
+            - 81:8000
+        volumes: 
+            - ../lcbp_a-backend:/app
+        # environment: 
+        #     - DB_HOST=am_db_host
+        #     - DB_PORT=3306
+        #     - DB_USER=movie
+        #     - DB_PSWD=moviepw
+        #     - DB_NAME=movie_db
+# MYSQL DATABASE
+    lcboost_db: 
+        #build: ./db
+        image: mysql:latest
+        container_name: dev_lcboost_db_ctn
+        ports: 
+            - 3307:3306
+        # volumes: 
+            # - ./db_auto_backup:/var/lib/mysql
+            # - ./db:/docker-entrypoint-initdb.d
+        environment: 
+            - MYSQL_ROOT_PASSWORD=mysqlpw
+            - MYSQL_USER=lcboost
+            - MYSQL_PASSWORD=lcboostpw
+            - MYSQL_DATABASE=lcboostdb
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 1s
+            retries: 60
+# PHPMYADMIN
+    lcboost_pma:
+        # build: ./pma
+        image: phpmyadmin:latest
+        container_name: dev_lcboost_pma_ctn
+        depends_on: 
+            - lcboost_db
+        links: 
+            - lcboost_db:lcboost_db_host
+        ports:
+            - 82:80
+        # volumes:
+        #     - ./pma:sessions
+        environment:
+            - PMA_HOST=lcboost_db_host
+            - PMA_PORT=3306
+        
