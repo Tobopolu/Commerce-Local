@@ -1,0 +1,62 @@
+
+.btn-submit {
+    background-color: #AA3F24;
+    border: none;
+    border-radius: 50px;
+    padding: 10px;
+    color: white;
+    margin: 20px 0px;
+}
+.btn-submit:hover {
+    background-color: #CC4D2D;
+}
+.title {
+    font-weight: bold;
+    margin: 40px 0px;
+}
+
+.day-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.day-row label {
+    width: 100px;
+}
+.largeur {
+    max-width: 600px;
+}
+.time-slot {
+    display: flex;
+    align-items: center;
+}
+.time-slot input {
+    width: 90px;
+    margin: 0 5px;
+}
+.time-slot button {
+    margin-left: 5px;
+}
+.checkbox:checked {
+    background-color: black;
+}
+input[type="checkbox"]:checked {
+    background-color: #28a745; /* Couleur lorsque la case est cochée */
+    border-color: #28a745; /* Couleur de la bordure quand coché */
+}
+.btn-delete {
+    background-color: #AA3F24;
+    border: none;
+}
+.btn-add {
+    background-color: #00652E;
+    border: none;
+}
+.horaires {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 5px;
+}
+.l-fixed {
+    min-width: 100px;
+}

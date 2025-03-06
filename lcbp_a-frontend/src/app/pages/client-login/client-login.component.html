@@ -1,0 +1,49 @@
+<div class="d-flex flex-column m-auto m-3 w-50 w-100-md p-3">
+    <legend class="h2 fw-bold text-center">Se connecter</legend>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="needs-validation" novalidate>
+  
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-group has-validation">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            ngModel
+            required
+            [class.is-invalid]="loginForm.submitted && email.invalid"
+            #email="ngModel"
+          />
+          <div class="invalid-feedback">Format invalide (example&#64;mail.com).</div>
+        </div>
+      </div>
+  
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <div class="input-group has-validation">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            ngModel
+            required
+            [class.is-invalid]="loginForm.submitted && password.invalid"
+            #password="ngModel"
+            minlength="8" 
+            maxlength="32"
+          />
+          <div class="invalid-feedback">Format invalide (8-32 caractères).</div>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <div>
+        <button class="my-3 w-100 btn c1" type="submit">Se Connecter</button>
+      </div>
+    </form>
+    <a (click)='navToRegister()' class="pcfx text-center">Vous n'avez pas de compte ? Inscrivez-vous</a>
+  </div>

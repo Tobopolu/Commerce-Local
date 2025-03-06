@@ -1,0 +1,391 @@
+
+<div class="d-flex flex-column justify-content-center">
+    <div class="mx-5 mt-4 input-group dropdown">
+        <span class="input-group-text" id="basic-addon1">Filtrer par :</span>
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ selectedFilterLabel }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" (click)="selectFilter(null, 'Tous')">Tous</a></li>
+            <li><a class="dropdown-item" (click)="selectFilter(1, 'En Attente')">Inactif</a></li>
+            <li><a class="dropdown-item" (click)="selectFilter(2, 'Validé')">Actif</a></li>
+        </ul>
+    </div>
+    @for (shop of filteredShops; track shop.id_shop) {
+        <div class="bg m-4">
+        <div class="card">
+            @if (shop.id_status==1) {
+                <div class="shop-head den text-center ">
+                    <h3><strong>Inactif</strong></h3>
+                </div>
+            } 
+            @else if (shop.id_status==2) {
+                <div class="shop-head val text-center">
+                    <h3><strong>Actif</strong></h3>
+                </div>
+            } 
+
+            <!-- Inner Shop Nav -->
+            <!-- <div class="bb shop-content d-flex flex-row justify-content-around">
+                <div class="text-center w-25">
+                    <h4><strong>Info</strong></h4>
+                </div>
+                <div class="bl text-center w-25">
+                    <h4><strong>Produits</strong></h4>
+                </div>
+                <div class="bl text-center w-25">
+                    <h4><strong>Evenements</strong></h4>
+                </div>
+                <div class="bl text-center w-25">
+                    <h4><strong>Promotions</strong></h4>
+                </div>
+            </div> -->
+            <!-- Inner Shop Nav End -->
+            <div class="bb innernav shop-content d-flex flex-row justify-content-around">
+                <div class="{{activeSection[shop.id_shop] =='info'? 'selected':''}} text-center w-25" (click)="setActiveSection(shop.id_shop, 'info')" [class.active]="isActiveSection(shop.id_shop, 'info')">
+                    <h4><strong>Info</strong></h4>
+                </div>
+                <div class="{{activeSection[shop.id_shop] =='produits'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(shop.id_shop, 'produits')" [class.active]="isActiveSection(shop.id_shop, 'produits')">
+                    <h4><strong>Produits</strong></h4>
+                </div>
+                <div class="{{activeSection[shop.id_shop] =='evenements'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(shop.id_shop, 'evenements')" [class.active]="isActiveSection(shop.id_shop, 'evenements')">
+                    <h4><strong>Evenements</strong></h4>
+                </div>
+                <div class="{{activeSection[shop.id_shop] =='promotions'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(shop.id_shop, 'promotions')" [class.active]="isActiveSection(shop.id_shop, 'promotions')">
+                    <h4><strong>Promotions</strong></h4>
+                </div>
+            </div>
+
+            @if(isActiveSection(shop.id_shop, 'info')){
+
+                
+                <!-- Info Section -->
+                <div class="shop-content d-flex flex-row justify-content-around">
+                
+                    <div class="d-flex flex-column text-center align-items-center justify-content-around shop-data">
+
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Documents</h5>
+                            </div>
+                            <div class="bb p-2">
+                                <a class="shop-proof" target="_blank" [href]=" baseUrl + shop.legalproof" alt="Legl proof">{{shop.legalproof.split('/')[2]}}</a>
+                            </div>
+                        </div>
+                        
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Icone</h5>
+                            </div>
+                            <div class="bb">
+                                <img class="shop-icon m-2" [src]=" baseUrl + shop.logo" alt="Logo">
+                            </div>
+                        </div>
+                        
+                        <div class="w-100 h-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Photo</h5>
+                            </div>
+                            <div class="">
+                                <img class=" w-100 shop-picture" [src]=" baseUrl + shop.image" alt="Logo">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="d-flex flex-column text-center align-items-center shop-info">
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Nom du commerce</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{shop.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Description</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{shop.description}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Adresse</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{shop.address}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Téléphone</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{shop.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">SIRET</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{shop.siret}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Propriétaire</h5>
+                            </div>
+                            <div class="">
+                                <p class="m-2">{{shop.id_shop}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Info Section End-->
+            }
+            
+            <!-- Produits Section -->
+
+            @if(isActiveSection(shop.id_shop, 'produits')){
+
+                @for (product of shop.products; track product.id_product) {
+
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                     
+                    <div class="shop-content d-flex flex-row justify-content-around">
+                    
+                        <div class="d-flex flex-column text-center align-items-center justify-content-around shop-data">
+                            
+                            <div class="w-100 h-100 bb">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Photo</h5>
+                                </div>
+                                <div class="">
+                                    <img class=" w-100 shop-picture" [src]=" baseUrl + product.images" alt="Logo">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Nom du produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Description</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.description}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Prix du produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{ roundNumber((product.price * (100 - product.promo)) / 100) }} €</p>                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Stock</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.stock}} articles disponibles.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /////////////////////////////////////////////////////////////// -->
+
+                }
+                @empty {
+                    <h2 class="text-center m-4">Aucun articles dans cette boutique.</h2>
+                }
+
+            }
+
+            <!-- Produits Section End-->
+
+            <!-- Evenements Section -->
+
+            @if(isActiveSection(shop.id_shop, 'evenements')){
+
+                @for (event of shop.events; track event.id_event) {
+
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                     
+                    <div class="shop-content d-flex flex-row justify-content-around">
+                    
+                        <div class="d-flex flex-column text-center align-items-center justify-content-around shop-data">
+                            
+                            <div class="w-100 h-100 bb">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Photo</h5>
+                                </div>
+                                <div class="">
+                                    <img class=" w-100 shop-picture" [src]=" baseUrl + event.images" alt="Logo">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Nom du produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{event.name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Description</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{event.description}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Address</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{event.address}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Date</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">Du {{event.date.split(',')[0]}} au {{event.date.split(',')[1]}}.</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Prix de l'entrée</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{event.price>0 ? event.price + ' €' : 'Gratuit'}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /////////////////////////////////////////////////////////////// -->
+
+                }
+                @empty {
+                    <h2 class="text-center m-4">Aucun évènements associés cette boutique.</h2>
+                }
+
+            }
+
+            <!-- Evenements Section End-->
+
+            <!-- Promotions Section -->
+
+            @if(isActiveSection(shop.id_shop, 'promotions')){
+
+                @for (product of shop.promos; track product.id_product) {
+
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                     
+                    <div class="shop-content d-flex flex-row justify-content-around">
+                    
+                        <div class="d-flex flex-column text-center align-items-center justify-content-around shop-data">
+                            
+                            <div class="w-100 h-100 bb">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Photo</h5>
+                                </div>
+                                <div class="">
+                                    <img class=" w-100 shop-picture" [src]=" baseUrl + product.images" alt="Logo">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Nom du produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Description</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.description}}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Prix du produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{ roundNumber((product.price * (100 - product.promo)) / 100) }} €</p>                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Stock</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{product.stock}} articles disponibles.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /////////////////////////////////////////////////////////////// -->
+
+                }
+                @empty {
+                    <h2 class="text-center m-4">Aucun articles en promotion dans cette boutique.</h2>
+                }
+
+            }
+
+            <!-- Promotions Section End-->
+
+
+            <div class="d-flex flex-row">
+                <div class="shop-den den text-center" (click)="handleShop(shop,3)">
+                    <h3>Désactiver</h3>
+                </div>
+                <div class="shop-val val text-center" (click)="handleShop(shop,2)">
+                    <h3>Activer</h3>
+                </div>
+            </div>
+        </div>
+        </div>
+    }
+    @empty {
+        <p>There are no shops.</p>
+    }
+</div>
+

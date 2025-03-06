@@ -1,0 +1,222 @@
+<div>
+    <h3 class="title">Gestion des produits</h3>
+    <div class="d-flex flex-wrap justify-content-center p-3">
+
+        
+
+        <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" id="addProductForm">
+            <h4 class="title-create">Création de produit</h4>
+            <div class="produit-add">
+                
+
+                <!-- Nom -->
+                <div class="mb-3">
+                    <label for="id-name" class="form-label">Nom</label>
+                    <input
+                        type="text"
+                        class="form-control input-style-add"
+                        id="id-name"
+                        name="name"
+                        ngModel
+                        required
+                        minlength="2"
+                        maxlength="100"
+                        #name="ngModel"
+                        [class.is-invalid]="productForm.submitted && name.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un nom valide (2-100 caractères).</div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="id-description" class="form-label">Description</label>
+                    <textarea
+                        class="form-control input-style-add"
+                        id="id-description"
+                        name="description"
+                        ngModel
+                        required
+                        minlength="4"
+                        maxlength="500"
+                        #description="ngModel"
+                        [class.is-invalid]="productForm.submitted && description.invalid"
+                    ></textarea>
+                    <div class="invalid-feedback">Veuillez entrer une description (4-500 caractères).</div>
+                </div>
+
+                <!-- Photo -->
+                <div class="mb-3">
+                    <label for="id-image" class="form-label">Image</label>
+                    <input
+                        type="file"
+                        class="form-control input-style-b"
+                        id="id-image"
+                        name="images"
+                        accept="image/*"
+                        required
+                        (change)="onImageSelectedForCreate($event)"
+                        [class.is-invalid]="productForm.submitted && !selectedImage"
+                    />
+                    <div class="invalid-feedback">Veuillez télécharger une image au format valide (JPEG, PNG, etc.).</div>
+                </div>
+
+                <!-- Prix -->
+                <div class="mb-3">
+                    <label for="id-price" class="form-label">Prix (€)</label>
+                    <input
+                        type="number"
+                        class="form-control input-style-add"
+                        id="id-price"
+                        name="price"
+                        ngModel
+                        required
+                        min="0.01"
+                        step="0.01"
+                        #price="ngModel"
+                        [class.is-invalid]="productForm.submitted && price.invalid" 
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un prix valide (minimum 0.01€).</div>
+                </div>
+
+                <!-- Stock -->
+                <div class="mb-3">
+                    <label for="id-stock" class="form-label">Stock</label>
+                    <input
+                        type="number"
+                        class="form-control input-style-add"
+                        id="id-stock"
+                        name="stock"
+                        ngModel
+                        required
+                        min="0"
+                        #stock="ngModel"
+                        [class.is-invalid]="productForm.submitted && stock.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer une quantité valide.</div>
+                </div>
+
+
+                <!-- Promotion -->
+                <div class="mb-3">
+                    <label for="id-promo" class="form-label">Promotion (%)</label>
+                    <input
+                        type="number"
+                        class="form-control input-style-add"
+                        id="id-promo"
+                        name="promo"
+                        ngModel
+                        min="0"
+                        max="100"
+                        step="1"
+                        #promo="ngModel"
+                        value="0"
+                        [class.is-invalid]="productForm.submitted && promo.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer une promotion entre 0 et 100%.</div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button class="w-100 btn-create" type="submit">Créer le produit</button>
+                </div>
+
+            </div>
+        </form>
+
+        <div *ngFor="let product of shop.products">
+            <form #updateForm="ngForm" (ngSubmit)="onUpdate(product.id_product, updateForm)" class="case">
+                <div class="produit-update">
+    
+                    <!-- Nom -->
+                    <div class="mb-3">
+                        <label for="id-name" class="form-label">Nom</label>
+                        <input 
+                            type="text" 
+                            class="form-control input-style" 
+                            id="id-name"
+                            name="name"
+                            [(ngModel)]="product.name" 
+                            #name="ngModel"
+                        />
+                    </div>
+    
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea 
+                            class="form-control input-style" 
+                            name="description"
+                            [(ngModel)]="product.description" 
+                            #description="ngModel"
+                        >
+                        </textarea>
+                    </div>
+    
+                    <!-- Image -->
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <div>
+                            <img *ngIf="product.images" [src]=" baseUrl + product.images" alt="Img" class="img-preview">
+                        </div>
+                        <input 
+                            type="file" 
+                            name="images"
+                            class="form-control input-style-b" 
+                            (change)="onImageSelectedForUpdate($event, product.id_product)"
+                            accept="image/*" 
+                        />
+                    </div>
+    
+                    <!-- Prix -->
+                    <div class="mb-3">
+                        <label class="form-label">Prix (€)</label>
+                        <input 
+                            type="number" 
+                            class="form-control input-style" 
+                            name="price"
+                            [(ngModel)]="product.price" 
+                            #price="ngModel" 
+                            min="0.01" 
+                            step="0.01" 
+                        />
+                    </div>
+    
+                    <!-- Stock -->
+                    <div class="mb-3">
+                        <label class="form-label">Stock</label>
+                        <input 
+                            type="number" 
+                            class="form-control input-style" 
+                            name="stock"
+                            [(ngModel)]="product.stock" 
+                            #stock="ngModel"
+                            min="0" 
+                        />
+                    </div>
+    
+                    <!-- Promotion -->
+                    <div class="mb-3">
+                        <label class="form-label">Promotion (%)</label>
+                        <input 
+                            type="number"
+                            class="form-control input-style"
+                            name="promo"
+                            [(ngModel)]="product.promo" 
+                            #promo="ngModel"
+                            min="0" 
+                            max="100" 
+                            step="1" 
+                        />
+                    </div>
+    
+                    <!-- Bouton de mise à jour -->
+                    <div class="d-flex gap-1">
+                        <button class="w-100 btn-del" type="button" (click)="onDelete(product.id_product)">Supprimer</button>
+                        <button class="w-100 btn-submit" type="button" (click)="onUpdate(product.id_product, updateForm)">Mettre à jour</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

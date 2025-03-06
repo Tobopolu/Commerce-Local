@@ -1,0 +1,65 @@
+<main>
+ 
+    <section class="my-5">
+        <app-carousel-promos></app-carousel-promos>
+    </section>
+ 
+    <section class="d-flex justify-content-center">
+        <div class="categories text-white p-2 d-flex flex-row">
+            <div class="col-3 d-flex flex-column">
+                @for (category of categories; track category.id_category) {
+                    <div class="text-white {{activeSection==category.id_category ? 'category-btn-selected' : 'category-btn'}} category btn d-flex justify-content-center align-items-center m-1"  
+                    style="background:url('{{baseUrl}}{{category.image}}')"
+                    (click)="activeCategory(category.id_category)">
+                        <h3 class="category-name text-center m-2">{{category.name}}</h3>
+                    </div>
+                }
+            </div>
+            <div class="col-9 shop-list m-1 d-flex flex-column">
+                    <div class="shop-list-header d-flex justify-content-center align-items-center "
+                    style="
+    background-repeat: no-repeat; background-size:cover; background-image:url('{{baseUrl}}{{categories[activeSectionIndex]?.image}}')">
+                        <h3 class="category-name text-center m-2">{{categories[activeSectionIndex]?.name}}</h3>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-around test overflow-auto">
+                        @for (shop of shoplist; track shop.id_shop) {
+                            <div class="shop-card custom-btn m-2">
+                                <div class="d-flex flex-row overflow-hidden shop-card-content"
+                                style="background-image:url('{{baseUrl}}{{shop.image}}')">
+                                <div (click)="navToShop(shop.id_shop)" class="d-flex flex-column w-75 align-items-center justify-content-center">
+                                    <div class="glassmorphism">
+                                        <h4 class="text-center shop-name"> {{shop.name}}</h4>
+                                        <p class="m-2">{{shop.address}} </p>
+                                        <p class="m-2">{{shop.phone}} </p>
+                                    </div>
+                                </div>
+                                    <div (click)="navToMap(shop.address)"
+                                     class="bl custom-btn d-flex flex-column justify-content-center align-items-center h-100 w-25"
+                                     >
+                                        <i class="align-middle fs-1 mx-2 bi bi-geo-alt-fill"></i>
+                                        <p>Carte</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+ 
+                    </div>
+            </div>
+ 
+        </div>
+    </section>
+    <section class="my-5" #mapsection>
+        <app-map></app-map>
+    </section>
+ 
+    <section class="events d-flex flex-column justify-content-center align-items-center">
+        <h1>Nos événements du moment</h1>
+ 
+        <app-carousel-events></app-carousel-events>
+ 
+ 
+        <button (click)="navToEvent()">Découvrir plus d'évenements</button>
+    </section>
+ 
+ 
+</main>

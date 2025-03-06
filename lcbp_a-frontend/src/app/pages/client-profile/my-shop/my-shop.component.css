@@ -1,0 +1,70 @@
+section {
+    background-color: white;
+}
+.btn-infos {
+    background-color: #AA3F24;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #AA3F24;
+}
+.btn-infos-select {
+    background-color: white;
+    color: #AA3F24;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #AA3F24;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.btn-infos:hover {
+    background-color: #CC4D2D;
+    border: 3px solid #CC4D2D;
+}
+.btn-products {
+    background-color: #A56D41;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #A56D41;
+}
+.btn-products-select {
+    background-color: white;
+    color: #A56D41;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #A56D41;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.btn-products:hover {
+    background-color: #D68B50;
+    border: 3px solid #D68B50;
+}
+.btn-events {
+    background-color: #00652E;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #00652E;
+}
+.btn-events-select {
+    background-color: white;
+    color: #00652E;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 3px solid #00652E;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.btn-events:hover {
+    background-color: #2E915B;
+    border: 3px solid #2E915B;
+}
+

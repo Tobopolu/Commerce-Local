@@ -1,0 +1,22 @@
+<div class="prnavctn d-flex justify-content-around">
+    <div class="ctn-sz d-flex justify-content-around">
+        <div class="{{selected =='info'? 'selected':''}} py-2">
+            <a routerLink="/profile/info" routerLinkActive="active" class=" {{selected =='info'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Mes Infos </a>
+        </div>
+        <div class="{{selected =='mailbox'? 'selected':''}} py-2">
+            <a routerLink="/profile/mailbox" routerLinkActive="active" class=" {{selected =='mailbox'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Messagerie </a>
+        </div>
+        <div class="{{selected =='history'? 'selected':''}} py-2">
+            <a routerLink="/profile/history" routerLinkActive="active" class=" {{selected =='history'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Historique </a>
+        </div>
+        <div class="{{selected =='shopkeeper-registration'||selected =='my-shop'? 'selected':''}} py-2">
+            @if(role=="shopkeeper"){
+            <a routerLink="/profile/my-shop" routerLinkActive="active" class=" {{selected =='my-shop'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Ma boutique </a>
+            }
+            @else{
+            <a routerLink="/profile/shopkeeper-registration" routerLinkActive="active" class=" {{selected =='shopkeeper-registration'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Devenir Commerçant </a>
+            }
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

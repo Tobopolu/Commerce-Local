@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-center align-items-center flex-column my-3">
+    <div class="ctn-sz"></div>
+    <div class="card ctn-sz">
+        <div class="d-flex flex-column m-auto p-3 w-50 w-100-md">
+            <legend>
+                <h3 class="fw-bold">Mes informations personnelles</h3>
+            </legend>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                
+                <!-- First Name -->
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">* Prénom</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="Prénom"
+                        formControlName="firstname"
+                        [class.is-invalid]="userForm.get('firstname')?.invalid && userForm.get('firstname')?.touched" />
+                    <div class="invalid-feedback">Format invalide (4-32 caractères).</div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">* Nom</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Nom"
+                        formControlName="lastname"
+                        [class.is-invalid]="userForm.get('lastname')?.invalid && userForm.get('lastname')?.touched" />
+                    <div class="invalid-feedback">Format invalide (4-32 caractères).</div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">* Téléphone</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="06-66-66-66-66"
+                        formControlName="phone" (input)="formatPhone($event)"
+                        [class.is-invalid]="userForm.get('phone')?.invalid && userForm.get('phone')?.touched" />
+                    <div class="invalid-feedback">Format invalide (ex: 06-66-66-66-66).</div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">* Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Exemple&#64;gmail.com"
+                        formControlName="email"
+                        [class.is-invalid]="userForm.get('email')?.invalid && userForm.get('email')?.touched" />
+                    <div class="invalid-feedback">Format invalide (example&#64;mail.com).</div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">* Mot de passe</label>
+                    <div class="input-group mb-3 has-validation">
+                        <input [type]="eyes['button-addon0'] ? 'text' : 'password'" class="form-control"
+                            id="password" placeholder="Ancien mot de passe" formControlName="password" 
+                            aria-describedby="button-addon0" />
+                        <button type="button" (click)="handleClick($event)" id="button-addon0" class="btn">
+                            <i [class]="eyes['button-addon0'] ? 'bi-eye' : 'bi-eye-slash'"></i>
+                        </button>
+                        <div class="invalid-feedback">Format invalide (8-32 caractères).</div>
+                    </div>
+                </div>
+
+                <!-- New Password -->
+                <div class="mb-3">
+                    <label for="newpassword" class="form-label">  Nouveau Mot de passe</label>
+                    <div class="input-group mb-3 has-validation">
+                        <input [type]="eyes['button-addon1'] ? 'text' : 'password'" class="form-control"
+                        id="newpassword" placeholder="Nouveau mot de passe" formControlName="newpassword" 
+                        aria-describedby="button-addon1" />
+                        <button type="button" (click)="handleClick($event)" id="button-addon1" class="btn">
+                            <i [class]="eyes['button-addon1'] ? 'bi-eye' : 'bi-eye-slash'"></i>
+                        </button>
+                        <div class="invalid-feedback">Format invalide (8-32 caractères).</div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <label for="confpassword" class="form-label">  Confirmez votre nouveau Mot de passe</label>
+                    <div class="input-group mb-3 has-validation">
+                        <input [type]="eyes['button-addon2'] ? 'text' : 'password'" class="form-control"
+                        id="confpassword" placeholder="Confirmer le mot de passe" formControlName="confpassword" 
+                        aria-describedby="button-addon2" (input)="matchPassword()"
+                         />
+                        <div class="invalid-feedback" *ngIf="!matchPassword()">Mot de passe différent.</div>
+                        <button type="button" (click)="handleClick($event)" id="button-addon2" class="btn">
+                            <i [class]="eyes['button-addon2'] ? 'bi-eye' : 'bi-eye-slash'"></i>
+                        </button>
+                        <div class="invalid-feedback">Mot de passe différent.</div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="my-3 w-100 btn c1">Enregistrer</button>
+
+            </form>
+        </div>
+    </div>
+</div>

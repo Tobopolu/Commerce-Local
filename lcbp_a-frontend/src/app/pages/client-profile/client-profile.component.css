@@ -1,0 +1,25 @@
+.no-dec{
+    text-decoration: none;
+}
+
+.ctn-sz{
+    width: 80%;
+}
+.selected{
+    background-color: #E3E1D4;
+}
+.prnavctn{
+    background-color: #A89E87;
+}
+a{
+    font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+    .ctn-sz{
+        width: 100%;
+    }
+    a{
+        font-size: 0.7em;
+    }
+}

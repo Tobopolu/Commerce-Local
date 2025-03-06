@@ -1,0 +1,226 @@
+<div>
+    <h3 class="title">Gestion des events</h3>
+    <div class="d-flex flex-wrap justify-content-center p-3">
+
+        
+
+        <form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm)" id="addEventForm">
+            <h4 class="title-create">Création des évènements</h4>
+            <div class="event-add">
+                
+
+                <!-- Nom -->
+                <div class="mb-3">
+                    <label for="id-name" class="form-label">Nom de l'évènement</label>
+                    <input
+                        type="text"
+                        class="form-control input-style-add"
+                        id="id-name"
+                        name="name"
+                        ngModel
+                        required
+                        minlength="2"
+                        maxlength="100"
+                        #name="ngModel"
+                        [class.is-invalid]="eventForm.submitted && name.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un nom valide (2-100 caractères).</div>
+                </div>
+
+                <!-- Date -->
+                <div class="mb-3">
+                    <label for="id-date" class="form-label">Date de l'évènement</label>
+                    <input
+                        type="text"
+                        class="form-control input-style-add"
+                        id="id-date"
+                        name="date"
+                        ngModel
+                        required
+                        placeholder="Début - Fin"
+                        #date="ngModel"
+                        [class.is-invalid]="eventForm.submitted && date.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un nom valide (2-100 caractères).</div>
+                </div>
+
+                <!-- Adresse -->
+                <div class="mb-3">
+                    <label for="id-address" class="form-label">Lieu de l'évènement</label>
+                    <input
+                        type="text"
+                        class="form-control input-style-add"
+                        id="id-address"
+                        name="address"
+                        ngModel
+                        required
+                        minlength="2"
+                        maxlength="100"
+                        #address="ngModel"
+                        [class.is-invalid]="eventForm.submitted && address.invalid"
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un nom valide (2-100 caractères).</div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="id-description" class="form-label">Description</label>
+                    <textarea
+                        class="form-control input-style-add"
+                        id="id-description"
+                        name="description"
+                        ngModel
+                        required
+                        minlength="4"
+                        maxlength="1500"
+                        #description="ngModel"
+                        [class.is-invalid]="eventForm.submitted && description.invalid"
+                    ></textarea>
+                    <div class="invalid-feedback">Veuillez entrer une description (4-500 caractères).</div>
+                </div>
+
+                <!-- Photo -->
+                <div class="mb-3">
+                    <label for="id-image" class="form-label">Image</label>
+                    <input
+                        type="file"
+                        class="form-control input-style-b"
+                        id="id-image"
+                        name="images"
+                        accept="image/*"
+                        required
+                        (change)="onImageSelectedForCreate($event)"
+                        [class.is-invalid]="eventForm.submitted && !selectedImage"
+                    />
+                    <div class="invalid-feedback">Veuillez télécharger une image au format valide (JPEG, PNG, etc.).</div>
+                </div>
+
+                <!-- Prix -->
+                <div class="mb-3">
+                    <label for="id-price" class="form-label">Prix d'entrée (€)</label>
+                    <input
+                        type="number"
+                        class="form-control input-style-add"
+                        id="id-price"
+                        name="price"
+                        ngModel
+                        step="0.01"
+                        #price="ngModel"
+                        [class.is-invalid]="eventForm.submitted && price.invalid" 
+                    />
+                    <div class="invalid-feedback">Veuillez entrer un prix valide (minimum 0.01€).</div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button class="w-100 btn-create" type="submit">Créer l'évènement</button>
+                </div>
+
+            </div>
+        </form>
+
+        <div *ngFor="let event of shop.events">
+            <form #updateForm="ngForm" (ngSubmit)="onUpdate(event.id_event, updateForm)" class="case">
+                <div class="event-update">
+    
+                    <!-- Nom -->
+                    <div class="mb-3">
+                        <label for="id-name" class="form-label">Nom</label>
+                        <input 
+                            type="text" 
+                            class="form-control input-style" 
+                            id="id-name"
+                            name="name"
+                            [(ngModel)]="event.name" 
+                            #name="ngModel"
+                            [class.is-invalid]="updateForm.submitted && name.invalid"
+                        />
+                    </div>
+                    
+                    <!-- Date -->
+                    <div class="mb-3">
+                        <label for="id-name" class="form-label">Date de l'évènement</label>
+                        <input 
+                            type="text" 
+                            class="form-control input-style" 
+                            id="id-date"
+                            name="date"
+                            required
+                            [(ngModel)]="event.date" 
+                            [class.is-invalid]="updateForm.submitted && date.invalid"
+                            #date="ngModel"
+                        />
+                    </div>
+
+                    
+                    <!-- Address -->
+                    <div class="mb-3">
+                        <label for="id-name" class="form-label">Lieu de l'évènement</label>
+                        <input 
+                            type="text" 
+                            class="form-control input-style" 
+                            id="id-address"
+                            name="address"
+                            [(ngModel)]="event.address" 
+                            required
+                            [class.is-invalid]="updateForm.submitted && address.invalid"
+                            #address="ngModel"
+                        />
+                    </div>
+    
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea 
+                            class="form-control input-style" 
+                            name="description"
+                            required
+                            minlength="10"
+                            maxlength="1500"
+                            [class.is-invalid]="updateForm.submitted && description.invalid"
+                            [(ngModel)]="event.description" 
+                            #description="ngModel"
+                        >
+                        </textarea>
+                    </div>
+    
+                    <!-- Image -->
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <div>
+                            <img *ngIf="event.images" [src]=" baseUrl + event.images" alt="Img" class="img-preview">
+                        </div>
+                        <input 
+                            type="file" 
+                            name="images"
+                            class="form-control input-style-b" 
+                            (change)="onImageSelectedForUpdate($event, event.id_event)"
+                            accept="image/*" 
+                        />
+                    </div>
+    
+                    <!-- Prix -->
+                    <div class="mb-3">
+                        <label class="form-label">Prix (€)</label>
+                        <input 
+                            type="number" 
+                            class="form-control input-style" 
+                            name="price"
+                            step="0.01"
+                            [(ngModel)]="event.price" 
+                            #price="ngModel" 
+                        />
+                    </div>
+    
+                    <!-- Bouton de mise à jour -->
+                    <div class="d-flex gap-1">
+                        <button class="w-100 btn-del" type="button" (click)="onDelete(event.id_event)">Supprimer</button>
+                        <button class="w-100 btn-submit" type="button" (click)="onUpdate(event.id_event, updateForm)">Mettre à jour</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+

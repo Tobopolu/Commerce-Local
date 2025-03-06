@@ -1,0 +1,17 @@
+<section class="pt-3">
+
+    <div class="d-flex flex-row gap-2 m-3">
+        <div class="{{selected =='my-infos'? 'selected':''}}">
+            <a routerLink="/profile/my-shop/my-infos" routerLinkActive="active" class=" {{selected =='my-infos'? 'btn-infos-select' : 'btn-infos'}}">Informations</a>
+        </div>
+        <div class="{{selected =='my-products'? 'selected':''}}">
+            <a routerLink="/profile/my-shop/my-products" routerLinkActive="active" class=" {{selected =='my-products'? 'btn-products-select' : 'btn-products'}}">Produits</a>
+        </div>
+        <div class="{{selected =='my-events'? 'selected':''}}">
+            <a routerLink="/profile/my-shop/my-events" class=" {{selected =='my-events'? 'btn-events-select' : 'btn-events'}}">Evenements</a>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+</section>

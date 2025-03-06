@@ -1,0 +1,19 @@
+.fond {
+    background-color: #D7C9A4;
+    max-width: 1000px;
+    padding: 60px;
+    border-radius: 20px;
+    margin: 60px auto;
+}
+.btn-color {
+    background-color: #AA3F24;
+    color: white;
+    border-radius: 20px;
+}
+.btn-color:hover {
+    background-color: #D65635;
+}
+h3 {
+    text-align: center;
+    font-weight: bold;
+}

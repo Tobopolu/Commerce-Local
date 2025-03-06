@@ -1,0 +1,219 @@
+
+
+<div class="d-flex justify-content-center align-items-center flex-column my-3 mx-auto largeur">
+
+    <h3 class="title">Création de compte commerçant</h3>
+    <form #shopForm="ngForm" (ngSubmit)="onSubmit(shopForm)" method="POST" enctype="multipart/form-data">
+        <div>
+            <!-- Raison sociale -->
+            <div class="mb-3">
+                <label for="id-name" class="form-label">Raison sociale</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="id-name"
+                    name="name"
+                    ngModel
+                    required
+                    [class.is-invalid]="shopForm.submitted && name.invalid"
+                    #name="ngModel"
+                    minlength="1" 
+                    maxlength="32"
+                    placeholder="Nom de la boutique"
+                />
+                <div class="invalid-feedback">Veuillez entrer la raison sociale.</div>
+            </div>
+
+            <!-- Numéro SIRET -->
+            <div class="mb-3">
+                <label for="id-siret" class="form-label">Numéro SIRET</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="id-siret"
+                    name="siret"
+                    ngModel
+                    required
+                    [class.is-invalid]="shopForm.submitted && siret.invalid"
+                    #siret="ngModel"
+                    pattern="\d{14}"
+                    placeholder="12345678901234"
+                />
+                <div class="invalid-feedback">Veuillez entrer un numéro SIRET valide (14 chiffres).</div>
+            </div>
+
+        
+            <!-- Adresse -->
+            <div class="mb-3">
+                <label for="id-address" class="form-label">Adresse</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="id-address"
+                    name="address"
+                    ngModel
+                    required
+                    [class.is-invalid]="shopForm.submitted && address.invalid"
+                    #address="ngModel"
+                    minlength="4" 
+                    maxlength="60"
+                    placeholder="N° Rue, Lieu, Ville, Code Postal"
+                />
+                <div class="invalid-feedback">Veuillez entrer une adresse valide.</div>
+            </div>
+
+            <!-- Catégorie -->
+            <div class="mb-3">
+                <label for="id-category" class="form-label">Catégorie</label>
+                <select
+                    class="form-select"
+                    id="id-category"
+                    name="category"
+                    ngModel
+                    required
+                >
+                    <option value="">Sélectionnez une catégorie</option>
+                    <!-- <option value="Restauration">Restauration</option>
+                    <option value="Jardin">Jardin</option>
+                    <option value="Bien Etre">Bien être</option>
+                    <option value="Artisanat">Artisanat</option>
+                    <option value="Alimentation">Alimentation</option>
+                    <option value="Mode">Mode</option> -->
+                    <option *ngFor="let cat of categories" [value]="cat.id_category">{{ cat.name }}</option>
+                </select>
+                <div class="invalid-feedback">Veuillez sélectionner une catégorie.</div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label for="id-phone" class="form-label">Téléphone</label>
+                <div class="input-group has-validation">
+                <input
+                type="tel"
+                class="form-control"
+                id="id-phone"
+                name="phone"
+                ngModel
+                required
+                [class.is-invalid]="shopForm.submitted && phone.invalid"
+                #phone="ngModel"
+                minlength="10" 
+                maxlength="14"
+                pattern="(\d{2}-){4}\d{2}"
+                (input)="formatPhone($event)"
+                placeholder="01-23-45-67-89"
+                />
+                <div class="invalid-feedback">Format invalide (ex : 06-66-66-66-66)</div>
+                </div>
+            </div>
+
+            <!-- Horaires d'ouverture -->
+            <p>Horaires d'ouverture</p>
+            <div class="horaires mb-3">
+                <div class="row">
+                  <div class="col-12 mb-2" *ngFor="let day of days">
+                    <!-- Première ligne : Nom du jour, checkbox et bouton "Ajouter un créneau" -->
+                    <div class="d-flex align-items-center">
+                      <input type="checkbox" id="{{ day.day }}" [(ngModel)]="day.isOpen" class="checkbox me-2" (change)="onDayChecked(day)" name="isOpen_{{ day.day }}">
+                      <label [for]="day.day" class="fw-bold me-3 l-fixed">{{ day.day | uppercase }}</label>
+                      
+                      <button *ngIf="day.isOpen" type="button" class="btn btn-success btn-sm btn-add" (click)="addSlot(day)">+ Ajouter un créneau</button>
+                    </div>
+              
+                    <!-- Deuxième ligne : Affichage des créneaux horaires si le jour est ouvert -->
+                    <div *ngIf="day.isOpen">
+                      <div class="time-slot d-flex align-items-center mt-2" *ngFor="let slot of day.timeSlots; let i = index">
+                        <select [(ngModel)]="slot.startHour" name="startHour_{{ day.day }}" class="form-select me-2">
+                          <option *ngFor="let hour of hours" [value]="hour.id_hour">{{ hour.hour }}</option>
+                        </select>
+                        <span class="me-2">-</span>
+                        <select [(ngModel)]="slot.endHour" name="endHour_{{ day.day }}" class="form-select me-2">
+                          <option *ngFor="let hour of hours" [value]="hour.id_hour">{{ hour.hour }}</option>
+                        </select>
+                        <!-- Bouton pour supprimer le créneau -->
+                        <button type="button" class="btn btn-danger btn-sm" (click)="deleteSlot(day, i)">×</button>
+                      </div>
+                    </div>
+              
+                    <!-- Si le jour est fermé -->
+                    <div *ngIf="!day.isOpen" class="mt-2">
+                      <span class="text-danger">FERMÉ</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+              
+              
+              
+
+            <!-- Justificatif -->
+            <div class="mb-3">
+                <label for="id-legalproof" class="form-label">Merci de fournir ci joint une pièce justifiant de votre activité.</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="id-legalproof"
+                    name="legalproof"
+                    required
+                    (change)="onFileSelected($event)"
+                    [class.is-invalid]="shopForm.submitted && !selectedFile"
+                />
+                <div class="form-text"></div>
+            </div>
+
+            <!-- Photo -->
+            <div class="mb-3">
+                <label for="id-photo" class="form-label">Photo</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="id-photo"
+                    name="photo"
+                    accept="image/*" 
+                    required
+                    (change)="onPhotoSelected($event)"
+                    [class.is-invalid]="shopForm.submitted && !selectedPhoto"
+                />
+                <div class="invalid-feedback">Veuillez télécharger une photo au format valide (JPEG, PNG, etc.).</div>
+            </div>
+
+            <!-- Logo -->
+            <div class="mb-3">
+                <label for="id-logo" class="form-label">Logo</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="id-logo"
+                    name="logo"
+                    accept="image/*" 
+                    required
+                    (change)="onLogoSelected($event)"
+                    [class.is-invalid]="shopForm.submitted && !selectedLogo"
+                />
+                <div class="form-text">Le logo doit être au format SVG, PNG, JPG.</div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="id-description" class="form-label">Description</label>
+                <textarea
+                    class="form-control"
+                    id="id-description"
+                    name="description"
+                    ngModel
+                    required
+                    rows="5"
+                    #description="ngModel"
+                    placeholder="Présentez votre boutique ..."
+                ></textarea>
+                    <!-- [class.is-invalid]="shopForm.submitted && description.invalid" -->
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button class="w-100 btn-submit" type="submit">S'inscrire</button>
+            </div>
+        </div>
+      </form>
+      
+</div>

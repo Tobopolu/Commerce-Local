@@ -1,0 +1,21 @@
+<section class="d-flex align-items-center justify-content-center">
+    <div class="products-grid">
+
+        <div *ngFor="let product of promoProducts" class="product-item d-flex flex-column align-items-start" [routerLink]="['/product', product.id_product]">
+            <div class="position">
+                <img [src]=" baseUrl + product.images" alt="Product 1" class="img-product">
+                <p class="promo">PROMO</p>
+            </div>
+            <p class="product-title">{{ product.name }}</p>
+            <p class="price">{{ (product.price * (1 - product.promo / 100) ) | number:'1.2-2' }} EUR</p>
+            <div class="d-flex gap-2">
+                <p class="og-price">A l'origine : <s>{{ product.price }} EUR</s></p>
+                <p class="reduction">-{{ product.promo }}%</p>
+            </div>
+            <a href="#">
+                <img src="img/add-cart.svg" alt="Ajoutez au panier">
+            </a>
+        </div>
+
+    </div>
+</section>

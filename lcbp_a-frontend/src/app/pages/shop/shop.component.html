@@ -1,0 +1,124 @@
+
+<main>
+
+    <section class="pb-3 pt-3">
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex align-items-center gap-3 logo-name">
+                <img class="shop-logo" [src]=" baseUrl + shopDetails?.logo" alt="Logo">
+                <h1>{{ shopDetails?.name }}</h1>
+            </div>
+            <div class="d-flex flex-column flex-lg-row p-3">
+                <img [src]=" baseUrl + shopDetails?.image " alt="" class="img-fluid mb-4 mb-lg-0 mr-4 gap shop-image">
+                <p class="description">{{ shopDetails?.description }}</p>
+            </div>
+        </div>
+        <div class="details d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="no-marge">{{ shopDetails?.address }}</p>
+                <a [href]="'https://www.google.com/maps?q=' + shopDetails?.address" class="text-dark" target="_blank">
+                    <i class="bi bi-geo-alt-fill fs-4"></i>
+                </a>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="no-marge">{{ shopDetails?.phone }}</p>
+                <a [href]="'tel:' + shopDetails?.phone" class="text-dark">
+                    <i class="bi bi-telephone-fill fs-4"></i>
+                </a>
+            </div>
+            <hr>
+            
+            <!-- <div class="d-flex justify-content-between">
+                <div class="jours">
+                    <div class="d-flex mb-2">
+                        <p class="day">Lundi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Mardi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Mercredi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Jeudi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Vendredi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Samedi</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <p class="day">Dimanche</p>
+                        <div class="d-flex flex-row">
+                            <p class="hour">9h00 - 12h00</p>
+                            <p class="hour">14h00 - 19h00</p>
+                        </div>
+                    </div>
+                </div>     
+            <i class="bi bi-clock-fill fs-4"></i>
+            </div> -->
+
+            
+            <div class="d-flex justify-content-between">
+                <div class="jours">
+                    <div *ngFor="let schedule of groupedSchedules" class="d-flex mb-2">
+                      <p class="day">{{ schedule.day }}</p>
+                      <div class="d-flex flex-row">
+                        <p *ngFor="let hour of schedule.hours" class="hour">{{ hour }}</p>
+                      </div>
+                    </div>
+                  </div>  
+            <i class="bi bi-clock-fill fs-4"></i>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section #sections>
+        <div class="prnavctn d-flex justify-content-around">
+            <div class="ctn-sz d-flex justify-content-around">
+                <div class="{{selected =='promotions'? 'selected':''}} py-2">
+                    <a [routerLink]="['/shop', shopDetails?.id_shop, 'promotions']" routerLinkActive="active" class=" {{selected =='promotions'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Promotions </a>
+                </div>
+                <div class="{{selected =='products'? 'selected':''}} py-2">
+                    <a [routerLink]="['/shop', shopDetails?.id_shop, 'products']" routerLinkActive="active" class=" {{selected =='products'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Produits </a>
+                </div>
+                <div id="events" class="{{selected =='events'? 'selected':''}} py-2">
+                    <a [routerLink]="['/shop', shopDetails?.id_shop, 'events']" routerLinkActive="active" class=" {{selected =='events'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Evenements </a>
+                </div>
+                <div class="{{selected =='shopkeeper-registration'||selected =='contact'? 'selected':''}} py-2">
+                    <a [routerLink]="['/shop', shopDetails?.id_shop, 'contact']" routerLinkActive="active" class=" {{selected =='contact'? 'text-dark' : 'text-light'}} no-dec mx-3 fw-bold text-uppercase"> Contact </a>
+                </div>
+            </div>
+        </div>
+
+        <router-outlet></router-outlet>
+    </section>
+
+</main>

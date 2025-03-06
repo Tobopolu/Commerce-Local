@@ -1,0 +1,12 @@
+<section class="d-flex align-items-center justify-content-center">
+    <div class="products-grid">
+        <div *ngFor="let product of products" class="product-item d-flex flex-column align-items-start" [routerLink]="['/product', product.id_product]">
+            <img [src]=" baseUrl + product.images " alt="Product 1" class="img-product">
+            <p class="product-title">{{ product.name }}</p>
+            <p class="price">{{ product.price }} EUR</p>
+            <a href="#">
+                <img src="img/add-cart.svg" alt="Ajoutez au panier">
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,66 @@
+<div class="bg pt-4 pb-4">
+    <button (click)="goToShop()" class="btn-shop">Revenir à la boutique</button>
+    <div class="d-flex justify-content-center pt-4">
+
+        <!-- <div class="d-flex">
+            <img [src]=" baseUrl + product?.images" alt="Image Produit" class="img-product">
+            <div class="infos">
+                <p class="title">{{ product?.name }}</p>
+                <p class="price">{{ product?.price }} EUR</p>
+                <p>Description détaillée</p>
+                <p class="description">{{ product?.description }}</p>
+                <p class="stock">EN STOCK : {{ product?.stock }}</p>
+                <div class="d-flex flex-column gap-3">
+                    <button class="btn-quantity">Quantité : </button>
+                    <button class="btn-addcart">Ajouter au panier</button>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div *ngIf="product" class="d-flex flex-column flex-md-row justify-content-center">
+
+            <div class="position-relative">
+                <span *ngIf="product?.promo && product.promo > 0" class="promo-badge d-flex">
+                    PROMO -{{ product.promo }}%
+                </span>
+                <img [src]=" baseUrl + product.images" alt="Image Produit" class="img-product">
+            </div>
+            
+            <div class="infos">
+                <p class="title mt-3">{{ product.name }}</p>
+
+                <p *ngIf="product?.promo && product.promo > 0" class="price-promo">
+                    {{ getDiscountedPrice(product) | number: '1.2-2' }} EUR
+                </p>
+
+                <p *ngIf="product?.promo && product.promo > 0" class="og-price">
+                    À l'origine : <s>{{ product.price | number: '1.2-2' }} EUR</s>
+                </p>
+
+                <p *ngIf="!product?.promo || product.promo === 0" class="price">
+                    {{ product.price | number: '1.2-2' }} EUR
+                </p>
+
+                <p class="desc">Description détaillée</p>
+                <p class="description">{{ product.description }}</p>
+                <p class="stock">EN STOCK : {{ product.stock }}</p>
+                <div class="d-flex flex-column gap-3">
+                    <div class="dropdown">
+                        <button class="btn btn-quantity dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                          Quantité : {{ selectedQuantity }}
+                        </button>
+                        <ul class="dropdown-menu scrollable-dropdown">
+                          <li *ngFor="let qty of quantities" (click)="selectQuantity(qty)">
+                            <a class="dropdown-item">{{ qty }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                    <button class="btn-addcart">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

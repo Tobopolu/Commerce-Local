@@ -1,0 +1,353 @@
+
+<div class="d-flex flex-column justify-content-center">
+    @for (user of usersData; track user.id_user) {
+        <div class="bg m-4">
+        <div class="card">
+            <div class="shop-head pend text-center ">
+                <h3><strong>{{user.id_user}} : {{user.lastname.toUpperCase()}} {{user.firstname}}</strong></h3>
+            </div>
+
+            <div class="bb innernav shop-content d-flex flex-row justify-content-around">
+                <div class="{{activeSection[user.id_user] =='info'? 'selected':''}} text-center w-25" (click)="setActiveSection(user.id_user, 'info')" [class.active]="isActiveSection(user.id_user, 'info')">
+                    <h4><strong>Profil</strong></h4>
+                </div>
+                <div class="{{activeSection[user.id_user] =='messagessent'||activeSection[user.id_user] =='messagesreceived'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(user.id_user, 'messagessent')" [class.active]="isActiveSection(user.id_user, 'messagessent') || isActiveSection(user.id_user, 'messagesreceived')">
+                    <h4><strong>Messages</strong></h4>
+                </div>
+                <div class="{{activeSection[user.id_user] =='commentaires'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(user.id_user, 'commentaires')" [class.active]="isActiveSection(user.id_user, 'commentaires')">
+                    <h4><strong>Commentaires</strong></h4>
+                </div>
+                <div class="{{activeSection[user.id_user] =='commandes'? 'selected':''}} bl text-center w-25" (click)="setActiveSection(user.id_user, 'commandes')" [class.active]="isActiveSection(user.id_user, 'commandes')">
+                    <h4><strong>Commandes</strong></h4>
+                </div>
+            </div>
+
+            @if(isActiveSection(user.id_user, 'info')){
+
+                <!-- Info Section -->
+                <div class="shop-content d-flex flex-row justify-content-around">
+                
+                    <div class="w-100 d-flex flex-column text-center align-items-center shop-info">
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">ID</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{user.id_user}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Nom</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{user.lastname.toUpperCase()}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Prénom</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{user.firstname}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Email</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{user.email}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Téléphone</h5>
+                            </div>
+                            <div class="bb">
+                                <p class="m-2">{{user.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="legend">
+                                <h5 class="mx-2 pt-2 text-decoration-underline">Role</h5>
+                            </div>
+                            <div class="">
+                                <p class="m-2">{{user.role}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Info Section End-->
+            }
+            
+            <!-- Messages Section -->
+
+            @else if(isActiveSection(user.id_user, 'messagessent') || isActiveSection(user.id_user, 'messagesreceived') ){
+
+                <div class=" w-100 innernav shop-content d-flex flex-row justify-content-around">
+                    <div class="{{activeSection[user.id_user] =='messagessent'? 'selected':''}} w-50 bb text-center w-25" (click)="setActiveSection(user.id_user, 'messagessent')" [class.active]="isActiveSection(user.id_user, 'messagessent')">
+                        <h4><strong>Envoyés</strong></h4>
+                    </div>
+                    <div class="{{activeSection[user.id_user] =='messagesreceived'? 'selected':''}} w-50 bb bl text-center w-25" (click)="setActiveSection(user.id_user, 'messagesreceived')" [class.active]="isActiveSection(user.id_user, 'messagesreceived')">
+                        <h4><strong>Reçus</strong></h4>
+                    </div>
+                </div>
+                @if( isActiveSection(user.id_user, 'messagessent') ){
+                    @for (message of user.sentMessages; track message.id_message) {
+    
+                        <!-- /////////////////////////////////////////////////////////////// -->
+                         
+                        <div class="w-100 shop-content d-flex flex-row justify-content-around">
+                        
+                            <div class="d-flex flex-column text-center align-items-center shop-info">
+                                
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Objet</h5>
+                                    </div>
+                                    <div class="bb">
+                                        <p class="m-2">{{ message.title }}</p>
+                                   </div>
+                                </div>
+                                
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Destinataire</h5>
+                                    </div>
+                                    <div class="bb">
+                                        <p class="m-2">{{ getUserFullNameById(message.id_recipient) }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Date</h5>
+                                    </div>
+                                    <div class="">
+                                        <p class="m-2">{{message.date}}</p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="d-flex flex-column text-center align-items-center shop-info">
+                                
+                                <div class="w-100  h-100 bl">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Message</h5>
+                                    </div>
+                                    <div class="">
+                                        <p class="m-2">{{message.message}}</p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <!-- /////////////////////////////////////////////////////////////// -->
+    
+                    }
+                    @empty {
+                        <h2 class="text-center m-4">Aucun messages envoyés.</h2>
+                    }
+                }
+                @else if( isActiveSection(user.id_user, 'messagesreceived') ){
+                    @for (message of user.receivedMessages; track message.id_message) {
+    
+                        <!-- /////////////////////////////////////////////////////////////// -->
+                         
+                        <div class="shop-content d-flex flex-row justify-content-around">
+                        
+                            <div class="d-flex flex-column text-center align-items-center shop-info">
+                                
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Objet</h5>
+                                    </div>
+                                    <div class="bb">
+                                        <p class="m-2">{{ message.title }}</p>
+                                   </div>
+                                </div>
+
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Expéditeur</h5>
+                                    </div>
+                                    <div class="bb">
+                                        <p class="m-2">{{ getUserFullNameById(message.id_sender) }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 ">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Date</h5>
+                                    </div>
+                                    <div class="">
+                                        <p class="m-2">{{message.date}}</p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="d-flex flex-column text-center align-items-center shop-info">
+                                
+                                <div class="w-100 h-100 bl">
+                                    <div class="legend">
+                                        <h5 class="mx-2 pt-2 text-decoration-underline">Message</h5>
+                                    </div>
+                                    <div class="">
+                                        <p class="m-2">{{message.message}}</p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <!-- /////////////////////////////////////////////////////////////// -->
+    
+                    }
+                    @empty {
+                        <h2 class="text-center m-4">Aucun messages reçus.</h2>
+                    }
+                }
+
+            }
+
+            <!-- Messages Section End-->
+
+            <!-- Comments Section -->
+
+            @else if(isActiveSection(user.id_user, 'commentaires')){
+
+                @for (comment of user.comments; track comment.id_comment) {
+                    
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                    
+                    <div class="shop-content d-flex flex-row justify-content-around">
+                        
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100 ">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Produit ID</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{ comment.id_product }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="w-100 ">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Note</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{ comment.note }} / 10</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100 ">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Date</h5>
+                                </div>
+                                <div class="">
+                                    <p class="m-2">{{comment.date}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100 bl">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Produit</h5>
+                                </div>
+                                <div class="bb">
+                                    <p class="m-2">{{ comment.product_name }}</p>
+                                </div>
+                            </div>
+
+                            <div class="w-100  h-100 bl">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Message</h5>
+                                </div>
+                                <div class="">
+                                    <p class="m-2">{{comment.message}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                    
+                }
+                @empty {
+                    <h2 class="text-center m-4">Aucun commentaires publiés.</h2>
+                }
+
+            }
+
+            <!-- Comments Section End-->
+
+            <!-- Orders Section -->
+
+            @else if(isActiveSection(user.id_user, 'commandes')){
+
+                @for (order of user.orders; track order.id_order) {
+                    
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                    
+                    <div class="shop-content d-flex flex-row justify-content-around">
+                        
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Commande</h5>
+                                </div>
+                                <div class="">
+                                    <p class="m-2">{{ order.id_order }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-column text-center align-items-center shop-info">
+                            
+                            <div class="w-100 bl">
+                                <div class="legend">
+                                    <h5 class="mx-2 pt-2 text-decoration-underline">Etat</h5>
+                                </div>
+                                <div class="">
+                                    <p class="m-2">{{order.state}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- /////////////////////////////////////////////////////////////// -->
+                    
+                }
+                @empty {
+                    <h2 class="text-center m-4">Aucun commentaires publiés.</h2>
+                }
+
+
+            }
+
+            <!-- Orders Section End-->
+
+
+            <!-- <div class="d-flex flex-row"> -->
+                <div class="w-100 user-del den text-center" (click)="handleDel(user.id_user,user.lastname,user.firstname)">
+                    <h3>Supprimer</h3>
+                </div>
+                <!-- <div class="shop-val val text-center" (click)="handleShop(shop,2)">
+                    <h3>Activer</h3>
+                </div> -->
+            <!-- </div> -->
+        </div>
+        </div>
+    }
+    @empty {
+        <p>There are no users.</p>
+    }
+</div>
+
