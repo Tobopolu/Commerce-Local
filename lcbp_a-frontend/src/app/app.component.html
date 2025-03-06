@@ -1,0 +1,111 @@
+<header>
+  <div class="grid-header">
+    
+    <a routerLink="/">
+      <img src="img/logo.svg" alt="logo" class="logo">
+    </a>
+    
+
+
+
+    <!-- <div class="container search">
+      <input placeholder="Recherche" class="inputBox">
+      <button class="search-btn"><img src="img/search.svg" alt="recherche" class="search-img"></button>
+    </div> -->
+    <div class="container search">
+
+      <input 
+        placeholder="Rechercher un commerce" 
+        class="inputBox"
+        [(ngModel)]="searchText" 
+        (input)="filterResults()"
+      >
+
+      <button class="search-btn">
+        <img src="img/search.svg" alt="recherche" class="search-img">
+      </button>
+
+      <ul class="dropdown" *ngIf="filteredShops.length > 0">
+        <li *ngFor="let shop of filteredShops" (click)="goToShop(shop)">
+          {{ shop.name }}
+        </li>
+      </ul>
+
+    </div>
+
+
+
+
+
+    <div class="connect d-flex flex-column align-items-center">
+      <a routerLink="/profile" routerLinkActive="active" ><img src="img/user.svg" alt="panier" class="cart-img"></a>
+      @if(auth.isAuthenticated()){
+        <a routerLink="/profile" routerLinkActive="active" class="text-link">Mon compte</a>
+        <a (click)="onLogout()" class="text-link">Se déconnecter</a>
+      }
+      @else{
+        <a routerLink="/login" routerLinkActive="active" class="text-link">Se connecter</a>
+        <a routerLink="/register" routerLinkActive="active" class="text-link register">S'inscrire</a>
+      }
+    </div>
+
+    <div class="cart d-flex flex-column align-items-center ">
+      <a href="#"><img src="img/cart.svg" alt="panier" class="cart-img"></a>
+      <a href="#" class="text-link">Mon panier</a>
+    </div>
+
+    <nav class="bec d-flex justify-content-center">
+
+        <a routerLink="/" class="nav-btn">Boutiques</a>
+        <a routerLink="/events" class="nav-btn">Evenements</a>
+        <a routerLink="/contact" class="nav-btn">Contact</a>
+
+    </nav>
+
+  </div>
+</header>
+
+
+
+<router-outlet></router-outlet>
+
+<footer>
+  <div class="d-flex justify-content-center gap-4">
+    <div class="d-flex flex-column espace">
+      <h3>Menu</h3>
+      <a href="#" class="text-white">Accueil</a>
+      <a href="#" class="text-white">Boutiques</a>
+      <a href="#" class="text-white">Evenements</a>
+      <a href="#" class="text-white">Contact</a>
+      <a routerLink="/login" routerLinkActive="active" class="text-white">Se connecter</a>
+      <a routerLink="/register" routerLinkActive="active" class="text-white">S'inscrire</a>
+      <a href="#" class="text-white">Mon panier</a>
+      <a href="#" class="text-white">Espace administrateur</a>
+    </div>
+    <div class="d-flex flex-column espace">
+      <h3>Réseaux sociaux</h3>
+      <p>Suivez-nous !</p>
+        <div class="d-flex gap-3">
+          <a href="https://facebook.com" target="_blank" class="text-white">
+            <i class="bi bi-facebook fs-2"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" class="text-white">
+            <i class="bi bi-twitter fs-2"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="text-white">
+            <i class="bi bi-instagram fs-2"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-white">
+            <i class="bi bi-linkedin fs-2"></i>
+          </a>
+        </div>
+      
+
+    </div>
+    <div class="d-flex flex-column about espace">
+      <h3>A propos</h3>
+      <p>Cette plateforme permettra aux habitants de découvrir les commerces, leurs produits, services, et événements spéciaux.</p>
+    </div>
+  </div>
+  <p class="text-center mt-3 droit">© 2024 Commerce Local. Tous droits réservés.</p>
+</footer>

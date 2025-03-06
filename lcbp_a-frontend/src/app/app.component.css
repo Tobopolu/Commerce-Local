@@ -1,0 +1,155 @@
+* {
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: white;
+    padding: 15px;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+.text-link{
+    cursor: pointer;
+}
+.register {
+    font-size: 12px;
+}
+.cart-img {
+    width: 50px;
+}
+.grid-header {
+    display: grid;
+    grid-template-areas: "logo search search search search search connect cart"
+                         "bec bec bec bec bec bec bec bec";   
+    grid-template-columns: repeat(8, 1fr);
+}
+.logo {
+    grid-area: logo;
+    width: 80px
+}
+.search {grid-area: search;}
+.connect {grid-area: connect;}
+.cart {grid-area: cart;}
+.bec {
+    grid-area: bec;
+    gap: 60px;
+}
+.nav-btn:hover {
+    color: #94AA24;
+    font-weight: bold;
+}
+
+/* Barre de recherche */
+.container {
+    background-color: #FBF6EA;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 10px 15px;
+    border-radius: 35px;
+}
+.inputBox {
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    background-color: #FBF6EA;
+    flex-grow: 1;
+}
+.search-img {
+    width: 25px;
+}
+.search-btn {
+    background-color: black;
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: none;
+}
+
+
+.dropdown {
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 8px 0px 0px 0px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); 
+  }
+  
+  .dropdown li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown li:hover {
+    background: #f0f0f0;
+  }
+
+
+  .search {
+    position: relative;
+  }
+  
+
+/* Media Queries Header */
+@media (max-width: 768px) {
+    .grid-header {
+        grid-template-areas: 
+            "logo logo connect cart"
+            "search search search search"
+            "bec bec bec bec";
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    .text-link {
+        display: none;
+    }
+    .cart-img {
+        width: 40px;
+    }
+    .container {
+        padding: 6px 10px;
+    }
+    .cart, .connect {
+        justify-content: center;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #6A7F44;
+    color: white;
+    padding: 40px 0px;
+}
+.about {
+    max-width: 250px;
+}
+footer h3 {
+    font-size: 20px;
+}
+footer a, footer p {
+    font-size: 16px;
+}
+.espace {
+    margin: 0 30px;
+}
+.droit {
+    font-size: 12px;
+}
+@media (max-width: 768px) {
+    footer .d-flex {
+      flex-direction: column;
+      margin: 10px;
+    }
+  }
+  
