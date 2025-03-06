@@ -1,0 +1,99 @@
+/* Slider events*/
+.wrapper {
+    display: flex;
+    justify-content: center; 
+    max-width: 90vw;
+    position: relative;
+    margin: 0 auto;
+}
+
+.wrapper i {
+    top: 50%;
+    height: 44px;
+    width: 44px;
+    color: #343F4F;
+    cursor: pointer;
+    font-size: 1.15rem;
+    position: absolute;
+    text-align: center;
+    line-height: 44px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.1s linear;
+    z-index: 10; 
+    background-color: #F3D9EA;
+}
+
+.wrapper i:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.wrapper i:hover {
+    background: #f2f2f2;
+}
+
+.wrapper i:first-child {
+    left: -22px;
+    display: block;
+}
+
+.wrapper i:last-child {
+    right: -22px;
+}
+
+/* Carrousel */
+.carousel {
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    /* cursor: grab; */
+    margin: 20px 0px;
+}
+
+.carousel.dragging {
+    cursor: grabbing; 
+    scroll-behavior: auto;
+}
+
+.carousel.dragging img {
+    pointer-events: none;
+}
+
+.carousel img {
+    height: 400px;
+    background-color: black;
+    object-fit: cover;
+    user-select: none;
+    margin-left: 14px;
+    width: 400px;
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+.carousel img:first-child {
+    margin-left: 0px;
+}
+
+.carousel img:last-child {
+    margin-right: 0px;
+}
+   
+@media screen and (max-width: 756px) {
+
+    .wrapper i {
+        margin: 0px 30px;
+    }
+    .carousel img {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    /* .carousel img {
+        width: 60vw;
+    } */
+}

@@ -1,0 +1,172 @@
+.ctn {
+    height: 45vh;
+    width: 80vw;
+    display: flex;
+    gap: 5px; 
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    cursor: pointer;
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.658);
+    border: 1px solid black;
+    height: 100%;
+    width: 30%;
+    margin: 2px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    transition: 0.3s ease;
+    overflow: hidden;
+}
+
+.ctn .card:first-child, 
+.ctn .card:last-child {
+    height: 70%;
+    width: 8%;
+}
+.ctn > .card:nth-child(2), 
+.ctn > .card:nth-child(7) {
+    height: 80%;
+    width: 10%;
+}
+.ctn > .card:nth-child(3), 
+.ctn > .card:nth-child(6) {
+    height: 90%;
+    width: 12%;
+}
+ 
+/*//////////////////////////////////////////////////////////////////////////*/
+
+.title {
+    position: absolute;
+    color: white;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    top: 5%;
+    left: 5%;
+    transform: rotate(0deg);
+}
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+.card:nth-child(3) .title, .card:nth-child(6) .title{
+    width: 250%;
+    font-size: 1.4em;
+    position: absolute;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    top: 50%;
+    left: -80%;
+    transform: rotate(-90deg);
+
+}
+.card:nth-child(2) .title, .card:nth-child(7) .title{
+    
+    width: 250%;
+    position: absolute;
+    font-size: 1.3em;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    top: 50%;
+    left: -80%;
+    transform: rotate(-90deg);
+}
+.card:first-child .title, .card:last-child .title {
+    width: 250%;
+    font-size: 1em;
+    position: absolute;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    top: 50%;
+    left: -80%;
+    transform: rotate(-90deg);
+}
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+.price{
+    position: absolute;
+    color: white;
+    background-color: #6A7F44;
+    width: 100%;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    bottom: 0%;
+    margin: 5px;
+    font-size: 1em;
+}
+
+
+.card:nth-child(3) .price, .card:nth-child(6) .price{
+    font-size: 0.8em;
+
+}
+.card:nth-child(2) .price, .card:nth-child(7) .price{
+    font-size: 0.6em;
+}
+.card:first-child .price, .card:last-child .price {
+    font-size: 0.4em;
+}
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+.reduc{
+    background-color: brown;
+    color: gold;
+    transform: rotate(45deg);
+    position: absolute;
+    font-size: 2em;
+    right: -50%;
+    top: 5%;
+    padding-left: 50%;
+    padding-right: 50%;
+}
+/*//////////////////////////////////////////////////////////////////////////*/
+
+.card:nth-child(3) .reduc, .card:nth-child(6) .reduc{
+    background-color: brown;
+    color: gold;
+    transform: rotate(10deg);
+    position: absolute;
+    font-size: 1em;
+    left: -45%;
+
+}
+.card:nth-child(2) .reduc, .card:nth-child(7) .reduc{
+    background-color: brown;
+    color: gold;
+    transform: rotate(10deg);
+    position: absolute;
+    font-size: 0.9em;
+    left: -45%;
+}
+.card:first-child .reduc, .card:last-child .reduc {
+    background-color: brown;
+    color: gold;
+    transform: rotate(10deg);
+    position: absolute;
+    font-size: 0.8em;
+    left: -45%;
+}
+.card:nth-child(-n+3) .reduc{
+    transform: rotate(-10deg);
+}
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+
+/* @media (max-width: 768px) {
+    .ctn-sz{
+        width: 100%;
+    }
+    a{
+        font-size: 0.7em;
+    }
+} */

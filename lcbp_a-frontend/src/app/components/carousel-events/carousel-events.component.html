@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <i id="left" class="bi bi-chevron-left"></i>
+    <div class="carousel">
+      @for(event of events; track event.id_event){
+        <img (click)='navToEvent(event.id_shop)' src="{{baseUrl}}{{event.images}}" alt="img" draggable="false">
+      }
+    </div>
+    <i id="right" class="bi bi-chevron-right"></i>
+  </div>

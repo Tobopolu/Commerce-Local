@@ -1,0 +1,14 @@
+<div #ctn class="my-3 ctn">
+    @for(prod of prods; track prod.id_product){
+        <div #card class="card" (click)="scroll($event,prod.id_product)" style="background-image: url('{{baseUrl}}{{prod.images}}') ;">
+            <h5 class="title text-center">
+                {{prod.name}}
+            </h5>
+            <h5 class="reduc py-2 text-center">-{{prod.promo}}%</h5>
+            <div class="m-0 price">
+                <p class="old-price mx-2 my-0"><s>{{prod.price}} €</s></p>
+                <p class="new-price mx-2 my-0">{{(prod.price*(1-prod.promo/100)) | number:'1.2-2'}} €</p>
+            </div>
+        </div>
+    }
+</div>
